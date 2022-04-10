@@ -11,6 +11,8 @@ using std::find;
 #include <iterator>
 using std::distance;
 
+namespace BWT{
+
 std::pair<string, int> encode(string s) {
     vector<string> BWT_table;
     for(unsigned int i = 0; i < s.size(); i++){
@@ -23,7 +25,7 @@ std::pair<string, int> encode(string s) {
     sort(
         BWT_table.begin(), 
         BWT_table.end(), 
-        [](const string &a, const string &b){return a <  b;}
+        [](const string &a, const string &b){return a < b;}
     );
 
     string result = "";
@@ -39,7 +41,7 @@ std::pair<string, int> encode(string s) {
     return {result, start_str_idx_in_sort};
 }
 
-string decode(const string &s, int n) {
+string decode(const string &s, const int& n) {
     if(n >= s.size() || s.empty())
       return "";
   
@@ -52,9 +54,10 @@ string decode(const string &s, int n) {
         sort(
             reverse_BWT_table.begin(), 
             reverse_BWT_table.end(),
-            [](const string &a, const string &b){return a <  b;}
+            [](const string &a, const string &b){return a < b;}
         );
     }
 
     return reverse_BWT_table[n];
+}
 }
